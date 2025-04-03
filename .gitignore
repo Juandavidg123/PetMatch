@@ -1,0 +1,25 @@
+#APIS
+apiJSON.json
+
+#Temporary folders
+temp
+temp/*
+
+#IDE specific files	
+*.vscode
+
+#Virutal environments
+venv
+venv/*
+env
+env/*
+.env
+.env/*
+
+#Python cache files
+__pycache__/*
+__pycache__
+
+#Database files
+*.sqlite3
+*.db

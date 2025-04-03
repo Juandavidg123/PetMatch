@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificador de Razas</title>
+</head>
+<body>
+    <h2>Sube una imagen de un perro</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" required>
+        <button type="submit">Analizar</button>
+    </form>
+
+    {% if image_url %}
+        <h3>Imagen:</h3>
+        <img src="{{ image_url }}" alt="Imagen subida" width="300">
+        <h3>Etiquetas detectadas:</h3>
+        <p>{{ labels }}</p>
+        <h3>Posible raza:</h3>
+        <p>{{ ai_response }}</p>
+    {% endif %}
+</body>
+</html>
