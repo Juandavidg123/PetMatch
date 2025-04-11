@@ -2,16 +2,27 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from .forms import RegistroForm, LoginForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def registro_view(request):
-    if request.method == 'POST':
-        form = RegistroForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
-        form = RegistroForm()
+    try:
+        if request.method == 'POST':
+            form = RegistroForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                login(request, user)
+                messages.success(request, '¡Registro exitoso! Bienvenido a PetMatch.')
+                return redirect('home')
+            else:
+                messages.error(request, 'Por favor corrige los errores en el formulario.')
+        else:
+            form = RegistroForm()
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error inesperado: {str(e)}')
+        form = RegistroForm()  # Asegura que el render tenga un formulario válido
+
     return render(request, 'registro.html', {'form': form})
+
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
