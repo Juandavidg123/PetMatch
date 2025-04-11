@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'IArecognition',
     'usuarios',
     'publicaciones',
+    'indexView',
 ]
 
 MIDDLEWARE = [

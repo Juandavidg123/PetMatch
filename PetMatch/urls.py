@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/', include('IArecognition.urls')),
     path('auth/', include('usuarios.urls')),
     path('publicaciones/', include('publicaciones.urls')),
+    path('', include('indexView.urls')),
 ]
