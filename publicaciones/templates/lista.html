@@ -1,0 +1,14 @@
+<h2>Publicaciones</h2>
+{% for pub in publicaciones %}
+  <div>
+    <h3><a href="{% url 'detalle_publicacion' pub.pk %}">{{ pub.titulo }}</a></h3>
+    <p>Por {{ pub.autor.username }} - {{ pub.creado_en }}</p>
+    <img src="{{ pub.foto.url }}" width="200">
+    {% if user == pub.autor %}
+      <p>
+        <a href="{% url 'editar_publicacion' pub.pk %}">Editar</a> |
+        <a href="{% url 'eliminar_publicacion' pub.pk %}">Eliminar</a>
+      </p>
+    {% endif %}
+  </div>
+{% endfor %}

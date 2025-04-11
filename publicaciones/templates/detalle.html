@@ -1,0 +1,9 @@
+<h2>{{ publicacion.titulo }}</h2>
+<img src="{{ publicacion.foto.url }}" width="300">
+<p>{{ publicacion.descripcion }}</p>
+
+<button onclick="document.getElementById('contacto').style.display='block'">Contactar</button>
+
+<div id="contacto" style="display:none;">
+  <p>Contacto: {{ publicacion.contacto }}</p>
+</div>
