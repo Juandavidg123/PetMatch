@@ -37,22 +37,27 @@ def get_ai_response(prompt):
     else:
         return f"Error: {response.status_code}, {response.text}"
 
+from django.conf import settings
+from django.core.files.storage import default_storage
+
 def image_upload(request):
     context = {}
 
     if request.method == "POST" and request.FILES.get("image"):
         image = request.FILES["image"]
-        image_path = default_storage.save("temp/" + image.name, image)
+        relative_path = default_storage.save("temp/" + image.name, image)
+        full_path = os.path.join(settings.MEDIA_ROOT, relative_path)  # <- Ruta física absoluta
 
         # Obtener etiquetas de la imagen
-        labels = detect_labels(image_path)
+        labels = detect_labels(full_path)
 
         # Enviar etiquetas a la IA
         prompt = f"{labels}, intenta identificar posibles razas de perro con estos datos. Si no es un perro, indica que no es un perro."
         ai_response = get_ai_response(prompt)
 
-        context["image_url"] = image_path
+        context["image_url"] = default_storage.url(relative_path)  # Para mostrar en la plantilla
         context["labels"] = labels
         context["ai_response"] = ai_response
 
     return render(request, "upload.html", context)
+
