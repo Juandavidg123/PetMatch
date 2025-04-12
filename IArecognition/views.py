@@ -6,7 +6,6 @@ from google.cloud import vision
 from django.core.files.storage import default_storage
 
 def detect_labels(image_path):
-    """Detecta etiquetas en la imagen."""
     client = vision.ImageAnnotatorClient()
 
     with open(image_path, 'rb') as image_file:
@@ -22,7 +21,6 @@ def detect_labels(image_path):
     return [label.description for label in labels]
 
 def get_ai_response(prompt):
-    """Obtiene respuesta de Gemini AI."""
     endpoint = os.getenv("GEMINI_API_ENDPOINT")
     headers = {"Content-Type": "application/json"}
     data = {
@@ -46,16 +44,14 @@ def image_upload(request):
     if request.method == "POST" and request.FILES.get("image"):
         image = request.FILES["image"]
         relative_path = default_storage.save("temp/" + image.name, image)
-        full_path = os.path.join(settings.MEDIA_ROOT, relative_path)  # <- Ruta física absoluta
+        full_path = os.path.join(settings.MEDIA_ROOT, relative_path)
 
-        # Obtener etiquetas de la imagen
         labels = detect_labels(full_path)
 
-        # Enviar etiquetas a la IA
         prompt = f"{labels}, intenta identificar posibles razas de perro con estos datos. Si no es un perro, indica que no es un perro."
         ai_response = get_ai_response(prompt)
 
-        context["image_url"] = default_storage.url(relative_path)  # Para mostrar en la plantilla
+        context["image_url"] = default_storage.url(relative_path)  
         context["labels"] = labels
         context["ai_response"] = ai_response
 

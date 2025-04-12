@@ -19,7 +19,7 @@ def registro_view(request):
             form = RegistroForm()
     except Exception as e:
         messages.error(request, f'Ocurrió un error inesperado: {str(e)}')
-        form = RegistroForm()  # Asegura que el render tenga un formulario válido
+        form = RegistroForm()
 
     return render(request, 'registro.html', {'form': form})
 
