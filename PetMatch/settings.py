@@ -77,12 +77,15 @@ WSGI_APPLICATION = 'PetMatch.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 import dj_database_url
 import os
+import dj_database_url
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default= os.getenv('DATABASE_URL'),
+    'default': dj_database_url.parse(
+        'postgresql://postgres.gpzixlrvioleizuybnid:zeedOHPDhc8KbbEe@aws-0-us-east-1.pooler.supabase.com:5432/postgres',
         conn_max_age=600
     )
 }
+
 
 
 # Password validation

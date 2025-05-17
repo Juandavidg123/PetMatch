@@ -1,9 +1,79 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Publicación - PetMatch</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background-color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .header,
+    .footer {
+      background-color: #1976d2;
+      color: white;
+      padding: 10px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      font-weight: bold;
+    }
+    .content-box {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      margin: auto;
+      margin-top: 40px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .footer {
+      text-align: center;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
 
-<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Publicación</h2>
+  <!-- Barra superior -->
+  <div class="header">
+    <div>
+      <a href="{% url 'home' %}" style="color: white; text-decoration: none;">PetMatch</a>
+    </div>
+    <div>
+      <a href="{% url 'logout' %}" style="color: white; text-decoration: none;">Cerrar Sesión</a>
+    </div>
+  </div>
 
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Guardar</button>
-</form>
+  <!-- Caja del formulario -->
+  <div class="content-box">
+    <h2 class="mb-4">{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Publicación</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+  </div>
+
+  <!-- Pie de página -->
+  <div class="footer">
+    Juan David Godoy Valencia - Johan Santiago Ramos Duarte
+  </div>
+
+</body>
+</html>
